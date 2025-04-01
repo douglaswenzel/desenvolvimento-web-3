@@ -7,4 +7,11 @@ export interface IProduct {
     price: number;
     weight: number;
     measureUnit: string;
-  }
+}
+
+export interface IProductListParams {
+    name: string;
+    brand: string;
+    supplier: string;
+    stockId: number;
+}
