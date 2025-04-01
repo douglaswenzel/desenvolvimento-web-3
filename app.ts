@@ -139,6 +139,17 @@ app.get("/fornecedor", (req: Request, res: Response) => {
   res.status(200).json(result);
 });
 
+app.get("/fornecedor/:id", (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const fornecedor = fornecedores.find(f => f.id === id);
+  
+  if (!fornecedor) {
+    return res.status(404).json({ message: "Fornecedor não encontrado" });
+  }
+  
+  res.status(200).json(fornecedor);
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server Works on ${port} port`);
