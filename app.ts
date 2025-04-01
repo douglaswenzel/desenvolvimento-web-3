@@ -15,13 +15,38 @@ interface Product {
   messUnity: string;
 }
 
-interface Cliete {
+interface Cliente {
   id: number;
   name: string;
   email: string;
   phone: number;
   addres: string;
 }
+
+interface Fornecedor {
+  id: number;
+  cnpj: number;
+  name: string; 
+  cep: number;
+  contato: string;
+}
+
+const fornecedores: Fornecedor[] = [
+  {
+    id: 1,
+    cnpj: 12345678000199,
+    name: "Distribuidora Alimentos SA",
+    cep: 12345678,
+    contato: "contato@distribuidora.com"
+  },
+  {
+    id: 2,
+    cnpj: 98765432000155,
+    name: "Bebidas do Brasil Ltda",
+    cep: 87654321,
+    contato: "contato@bebidas.com"
+  }
+];
 
 const products: Product[] = [
   {
@@ -98,6 +123,20 @@ app.delete("/product/:id", (req: Request, res: Response) => {
   } else {
     res.status(404).json({ message: "Produto não encontrado" });
   }
+});
+
+app.get("/fornecedor", (req: Request, res: Response) => {
+  const name = req.query.name as string;
+  
+  let result = fornecedores;
+  
+  if (name) {
+    result = result.filter(fornecedor => 
+      fornecedor.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+  
+  res.status(200).json(result);
 });
 
 const port = 3000;
